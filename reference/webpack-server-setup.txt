@@ -49,6 +49,7 @@ exactly the correct order. It would be a massive pain
 - css loader takes your css and turns it into javascript, style loader takes that css-javascript and puts it into the dom 
 - sass is like a more advanced version of css (it's just a css extension)
 - You still have to load your ./main/css file, you just load it from index.js rather than your html 
+- Actually this is only true until you start hashing stuff. The htmlwebpack plugin means you dont import anything from ./main
 - Remember, there is no css or html in your final javascript on the server. Everything is converted to javascript then run 
 - Caching is when your browser remembers stuff. If you run a program the first time the server will take from the file location. If you
 refresh the page the browser will take the file from it's own file it just created locally (since it assumes the file hasn't changed). This
