@@ -1,13 +1,13 @@
-// Instantiate imported objects
-const scriptObj1 = new script1();
-const scriptObj2 = new script2();
+import { scriptFunc1 } from './script1';
+import { ScriptClass2 } from './script2';
+const scriptObj2 = new ScriptClass2();
+
+
 // Instantiate main function which contains all runnable code
-const run = (scriptObj1, scriptObj2) => {
-    console.log('hello');
+export const run = (scriptObj2) => {
+    scriptFunc1();
+    scriptObj2.scriptMethod2();
 
     // Where your code goes 
-    // script1Obj.method();
 }
 
-// Call main function
-run(scriptObj1, scriptObj2);

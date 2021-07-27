@@ -14,7 +14,11 @@ In package.json, replace all text with:
     "build": "webpack"
   },
 
+
+"start": "webpack"
+
 npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server
+npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server css-loader style-loader clean-webpack-plugin html-webpack-plugin html-loader
 npm install --save-dev css-loader style-loader
 npm install --save-dev lodash
 npm install --save-dev clean-webpack-plugin
@@ -122,10 +126,78 @@ module.exports = {
 
 
 
+module.exports = {
+    entry: {
+        app: './js/index.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
+    devServer: {
+      contentBase: './dist',
+    },
+    target: "node",
+    module: {
+        rules: [
+          {
+            test: /\.m?js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ['@babel/preset-env']
+              }
+            }
+          }
+        ]
+      }
+};
 
 
 
 
+
+
+
+
+
+
+  plugins: [
+    new cleanWebpackPlugin(),
+    new HtmlWebpackPlugin('./src/template.html')
+  ],
+  target: "node",
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[name].[hash].[ext]",
+              outputPath: "dist "
+            }
+          },
+        ],
+      },
+    ],
+  },
 
 
 
