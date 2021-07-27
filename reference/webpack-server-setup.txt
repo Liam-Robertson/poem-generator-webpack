@@ -1,0 +1,135 @@
+Basic Setup:
+
+Open webpack-server-boilerplate” in vscode
+npm init -y
+create .gitignore and add:
+node_modules
+dist
+
+In package.json, replace all text with:
+"private": true, 
+"scripts": {
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+
+npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server
+npm install --save-dev css-loader style-loader
+npm install --save-dev lodash
+npm install --save-dev clean-webpack-plugin
+npm install --save-dev html-webpack-plugin
+npm install --save-dev html-loader
+npm run build
+npm start
+
+
+import { camelCase } from ‘lodash’
+
+
+
+
+Notes:
+- The entry point for your program is specified in package.json. By default it will look in ./src/index.js
+- You can define the entry point in package.json but this only defines the file, not the path
+- If you want to change the file path it looks in you have to do that in the config file
+- Your package.json and config should point to the same entry 
+- You can change your output or input by changing it in config 
+- The mode: development field makes bundle.js more readable 
+- Loaders are used to tell javascript how to handle different file types 
+- Loaders transpile different file types down to be understood by javascript
+- If you want to use your css file inside of other files you need to import it to index.js
+- css loader takes your css and turns it into javascript, style loader takes that css-javascript and puts it into the dom 
+- sass is like a more advanced version of css (it's just a css extension)
+- Remember, there is no css or html in your final javascript on the server. Everything is converted to javascript then run 
+- Caching is when your browser remembers stuff. If you run a program the first time the server will take from the file location. If you
+refresh the page the browser will take the file from it's own file it just created locally (since it assumes the file hasn't changed). This
+is called caching 
+- The problem with this is that if a user calls your program on their browser, goes away from three days and calls it again then the browser
+will still just use it's cached file. That means even if the dev have updated the file the user will only see the cached version of the file 
+from three days ago 
+- You fix this using cache busting. This means that every time the dev updates the file the file name on the serve will change slightly so the
+user will call the correct version 
+- You run cache busting by writing filename[contentHash].js e.g.'bundle.[contentHash].js'
+- The problem with cache busting is that you can no longer call your bundle.js script from your html (since the name of bundle.js is hashed
+every time the browser runs)
+- You fix this with plugins - htmlwebpack plugin fixes this
+- When you are using htmlwebpack, you put your index.html into a template and then in your config file tell your plugin to use that template
+- This also means you no longer have to import js through <script>. Instead the plugin takes care of this for you 
+- If you look at index.html in dist folder, the <script> will now call the hashed version of bundle
+- The point of your build folder is that it contains absolutely everything you need to run your server. All your css, javascript, images, everything
+- Images also get hashbusted
+- Use html loader to put images in dist
+- file loader converts files like images to javascript and puts them in the dist folder. This means you don't need to import them 
+- Clean webpack deletes the dist build and remakes it every time you load the webpage
+- This ensure that you don't have a massive build up of hashed dist files in your directory
+
+
+new HtmlWebpackPlugin('./src/template.html')
+
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const cleanWebpackPlugin = require("clean-webpack-plugin");
+ 
+module.exports = {
+  mode: 'development',
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.[contentHash].js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  plugins: [
+    new cleanWebpackPlugin(),
+    new HtmlWebpackPlugin('./src/template.html')
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[name].[hash].[ext]",
+              outputPath: "dist "
+            }
+          },
+        ],
+      },
+    ],
+  },
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
