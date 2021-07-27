@@ -30,6 +30,8 @@ import { camelCase } from ‘lodash’
 
 
 Notes:
+- You actually could do all your imports without webpack but you would have to use tons of imports and you would have to instantiate them in
+exactly the correct order. It would be a massive pain 
 - The entry point for your program is specified in package.json. By default it will look in ./src/index.js
 - You can define the entry point in package.json but this only defines the file, not the path
 - If you want to change the file path it looks in you have to do that in the config file
