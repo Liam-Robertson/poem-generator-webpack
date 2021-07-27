@@ -18,7 +18,7 @@ In package.json, replace all text with:
 "start": "webpack"
 
 npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server
-npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server css-loader style-loader clean-webpack-plugin html-webpack-plugin html-loader
+npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server css-loader style-loader clean-webpack-plugin html-webpack-plugin html-loader mini-css-extract-plugin file-loader npm install --save-dev optimize-css-assets-webpack-plugin webpack-merge
 npm install --save-dev css-loader style-loader
 npm install --save-dev lodash
 npm install --save-dev clean-webpack-plugin
