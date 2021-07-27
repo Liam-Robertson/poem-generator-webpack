@@ -4,4 +4,4 @@ import './main.css'
 const scriptObj2 = new ScriptClass2();
 
 console.log('from index.js');
-run(scriptObj2);
+run(scriptObj2); 
