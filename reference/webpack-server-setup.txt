@@ -22,7 +22,8 @@ npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel
 npm install --save-dev css-loader style-loader
 npm install --save-dev lodash
 npm install --save-dev clean-webpack-plugin
-npm install --save-dev html-webpack-plugin
+npm install --save-dev mini-css-extract-plugin
+0npm install --save-dev html-webpack-plugin
 npm install --save-dev html-loader
 npm install file-loader --save-dev
 
@@ -31,6 +32,19 @@ npm start
 
 
 import { camelCase } from ‘lodash’
+
+
+"scripts": {
+    "start": "webpack-dev-server  --config webpack.dev.js --open",
+    "build": "webpack --config webpack.prod.js"
+  },
+
+
+
+
+
+
+
 
 
 
