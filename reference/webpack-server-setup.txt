@@ -1,52 +1,19 @@
-Basic Setup:
-
-Open webpack-server-boilerplate” in vscode
-npm init -y
-create .gitignore and add:
+.gitignore:
 node_modules
 dist
 
-In package.json, replace all text with:
-"private": true, 
-"scripts": {
-    "watch": "webpack --watch",
-    "start": "webpack serve --open",
-    "build": "webpack"
-  },
-
-
-"start": "webpack"
-
-npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server
-npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server css-loader style-loader clean-webpack-plugin html-webpack-plugin html-loader mini-css-extract-plugin file-loader npm install --save-dev optimize-css-assets-webpack-plugin webpack-merge
-npm install --save-dev css-loader style-loader
+npm init -y
+npm install --save-dev webpack webpack-cli @babel/preset-env babel-loader @babel/core webpack-dev-server css-loader style-loader clean-webpack-plugin html-webpack-plugin html-loader mini-css-extract-plugin file-loader npm install --save-dev optimize-css-assets-webpack-plugin webpack-merge bootstrap jquery @popperjs/core
 npm install --save-dev lodash
-npm install --save-dev clean-webpack-plugin
-npm install --save-dev mini-css-extract-plugin
-0npm install --save-dev html-webpack-plugin
-npm install --save-dev html-loader
-npm install file-loader --save-dev
-
-npm run build
 npm start
 
 
-import { camelCase } from ‘lodash’
-
+Package.json:
 
 "scripts": {
-    "start": "webpack-dev-server  --config webpack.dev.js --open",
+    "start": "webpack serve --config webpack.dev.js --open",
     "build": "webpack --config webpack.prod.js"
   },
-
-
-
-
-
-
-
-
-
 
 
 Notes:
@@ -88,138 +55,6 @@ every time the browser runs)
 - file loader converts files like images to javascript and puts them in the dist folder. This means you don't need to import them 
 - Clean webpack deletes the dist build and remakes it every time you load the webpage
 - This ensure that you don't have a massive build up of hashed dist files in your directory
-
-
-new HtmlWebpackPlugin('./src/template.html')
-
-
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const cleanWebpackPlugin = require("clean-webpack-plugin");
- 
-module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.[contentHash].js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  plugins: [
-    new cleanWebpackPlugin(),
-    new HtmlWebpackPlugin('./src/template.html')
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: "[name].[hash].[ext]",
-              outputPath: "dist "
-            }
-          },
-        ],
-      },
-    ],
-  },
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = {
-    entry: {
-        app: './js/index.js'
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-    },
-    devServer: {
-      contentBase: './dist',
-    },
-    target: "node",
-    module: {
-        rules: [
-          {
-            test: /\.m?js$/,
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader",
-              options: {
-                presets: ['@babel/preset-env']
-              }
-            }
-          }
-        ]
-      }
-};
-
-
-
-
-
-
-
-
-
-
-  plugins: [
-    new cleanWebpackPlugin(),
-    new HtmlWebpackPlugin('./src/template.html')
-  ],
-  target: "node",
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: "[name].[hash].[ext]",
-              outputPath: "dist "
-            }
-          },
-        ],
-      },
-    ],
-  },
-
-
-
 
 
 
